@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-v0%pjpzjto!-191erlpg66o$&5lkd47xwl78#ewf#-**w8xzhs"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['glorious-grid-justifier.ngrok-free.dev','127.0.0.1','localhost']
+ALLOWED_HOSTS = ["event-booking-portal-lzur.onrender.com",
+                 "localhost","127.0.0.1",]
 
 
 # Application definition
