@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Event Booking Portal</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>Event Booking Portal</h1>
+</header>
+
+<nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'register' %}">Register</a>
+</nav>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>Welcome Back</h2>
+
+        <p class="auth-subtitle">
+            Login to continue to your account
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="auth-button">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-link">
+            Don't have an account?
+            <a href="{% url 'register' %}">
+                Register here
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>
+        &copy; 2026 Event Booking Portal |
+        Developed by Astha Pardeshi |
+        All Rights Reserved
+    </p>
+</footer>
+
+</body>
+</html>

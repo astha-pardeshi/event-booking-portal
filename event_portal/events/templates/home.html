@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Booking Portal</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Event Booking Portal</h1>
+</header>
+
+<nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="#events">Events</a>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url 'contact' %}">Contact</a>
+    <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'my_bookings' %}">My Booking</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <form method="post" action="/logout/" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:white; font-weight:bold; cursor:pointer; padding:0; margin:0 20px;">
+        Logout
+    </button>
+</form> 
+    <a href="{% url 'profile' %}">Profile</a>
+</nav>
+
+
+<div class="voice-assistant">
+    <button id="voiceButton" type="button">🎤 Voice Assistant</button>
+    <p id="voiceStatus">Click the microphone to speak</p>
+</div>
+
+
+<section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('{% static "images/event_bg.jpg" %}');">
+    <h1>Welcome to Event Booking Portal</h1>
+    <p>Discover and book amazing events with just one click.</p>
+
+    <a href="#events">
+        <button>Explore Events</button>
+    </a>
+</section>
+
+
+<div style="text-align:center; margin:30px;">
+    <form method="GET">
+        <input type="text"
+               name="q"
+               placeholder="Search events..."
+               value="{{ query }}"
+               style="padding:10px; width:300px;">
+
+        <button type="submit">Search</button>
+    </form>
+</div>
+    <h2 style="text-align:center;">Upcoming Events</h2>
+
+<div id="events" style="display:flex; flex-wrap:wrap; justify-content:center;">
+
+{% for event in events %}
+
+<div class= "event-card">
+
+{% if event.image %}
+    <img src="{{ event.image.url }}"
+         alt="{{ event.title }}"
+         width="250"
+         height="150"
+         style="border-radius:8px;">
+{% endif %}
+
+<h3>{{ event.title }}</h3>
+
+<p><strong>Category:</strong>{{ event.category }}</p>
+
+<p><strong>Description:</strong> {{ event.description }}</p>
+
+<p><strong>Date & Time:</strong> {{ event.date_and_time|date:"F d, Y P" }}</p>
+
+<p><strong>Location:</strong> {{ event.location }}</p>
+
+<p><strong>Total Slots:</strong> {{ event.total_slots }}</p>
+
+<a href="{% url 'book_event' event.id %}">
+<button>Book Now</button>
+</a>
+
+</div>
+
+{% empty %}
+
+<p>No events available.</p>
+
+{% endfor %}
+
+
+
+</div>
+
+<footer>
+    <p>&copy; 2026 Event Booking Portal | Developed by Astha Pardeshi | All Rights Reserved</p>
+</footer>
+
+<script>
+const voiceButton = document.getElementById("voiceButton");
+const voiceStatus = document.getElementById("voiceStatus");
+
+const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    voiceButton.addEventListener("click", function () {
+
+        voiceStatus.textContent = "Listening... 🎤";
+
+        recognition.start();
+
+    });
+
+    recognition.onresult = function(event) {
+
+        const command =
+            event.results[0][0].transcript.toLowerCase();
+
+        voiceStatus.textContent = "You said: " + command;
+
+        if (command.includes("home")) {
+            window.location.href = "{% url 'home' %}";
+        }
+
+        else if (command.includes("event")) {
+            window.location.href = "{% url 'home' %}#events";
+        }
+
+        else if (command.includes("about")) {
+            window.location.href = "{% url 'about' %}";
+        }
+
+        else if (command.includes("contact")) {
+            window.location.href = "{% url 'contact' %}";
+        }
+
+        else if (command.includes("register")) {
+            window.location.href = "{% url 'register' %}";
+        }
+
+        else if (command.includes("login")) {
+            window.location.href = "{% url 'login' %}";
+        }
+
+        else if (command.includes("booking")) {
+            window.location.href = "{% url 'my_bookings' %}";
+        }
+
+        else if (command.includes("dashboard")) {
+            window.location.href = "{% url 'dashboard' %}";
+        }
+
+        else if (command.includes("profile")) {
+            window.location.href = "{% url 'profile' %}";
+        }
+
+        else {
+            voiceStatus.textContent =
+                "Sorry, I didn't understand that command.";
+        }
+    };
+
+    recognition.onerror = function(event) {
+
+        voiceStatus.textContent =
+            "Voice error: " + event.error;
+
+    };
+
+} else {
+
+    voiceButton.disabled = true;
+
+    voiceStatus.textContent =
+        "Voice recognition is not supported in this browser.";
+}
+</script>
+
+</body>
+</html>

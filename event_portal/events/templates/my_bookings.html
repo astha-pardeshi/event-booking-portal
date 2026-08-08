@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bookings - Event Booking Portal</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>My Bookings</h1>
+</header>
+
+<nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'profile' %}">Profile</a>
+</nav>
+
+<div class="booking-container">
+
+    <h2>My Bookings</h2>
+
+    {% for booking in bookings %}
+
+    <div class="booking-card">
+
+        <h3>{{ booking.event.title }}</h3>
+
+        <p>
+            <strong>Category:</strong>
+            {{ booking.event.category }}
+        </p>
+
+        <p>
+            <strong>Date & Time:</strong>
+            {{ booking.event.date_and_time|date:"F d, Y, h:i A" }}
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            {{ booking.event.location }}
+        </p>
+
+        <p>
+            <strong>Tickets:</strong>
+            {{ booking.tickets }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            <span class="booking-status">
+                {{ booking.status }}
+            </span>
+        </p>
+
+        <a href="{% url 'cancel_booking' booking.id %}">
+            <button class="cancel-btn" type="button">
+                Cancel Booking
+            </button>
+        </a>
+
+    </div>
+
+    {% empty %}
+
+    <div class="booking-card" style="text-align:center;">
+        <h3>No Bookings Yet</h3>
+        <p>You haven't booked any events yet.</p>
+
+        <a href="{% url 'home' %}">
+            <button>Explore Events</button>
+        </a>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<footer>
+    <p>
+        &copy; 2026 Event Booking Portal |
+        Developed by Astha Pardeshi |
+        All Rights Reserved
+    </p>
+</footer>
+
+</body>
+</html>

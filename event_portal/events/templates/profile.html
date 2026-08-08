@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile - Event Booking Portal</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>Event Booking Portal</h1>
+</header>
+
+<nav>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+    <a href="{% url 'my_bookings' %}">My Bookings</a>
+</nav>
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-icon">👤</div>
+
+        <h2>{{ request.user.username }}</h2>
+
+        <p class="profile-subtitle">
+            Your Account Information
+        </p>
+
+        <div class="profile-info">
+
+            <div class="profile-row">
+                <strong>Username</strong>
+                <span>{{ request.user.username }}</span>
+            </div>
+
+            <div class="profile-row">
+                <strong>Email</strong>
+                <span>{{ request.user.email }}</span>
+            </div>
+
+            <div class="profile-row">
+                <strong>First Name</strong>
+                <span>{{ request.user.first_name|default:"Not provided" }}</span>
+            </div>
+
+            <div class="profile-row">
+                <strong>Last Name</strong>
+                <span>{{ request.user.last_name|default:"Not provided" }}</span>
+            </div>
+
+        </div>
+
+        <a href="{% url 'home' %}">
+            <button class="profile-button">
+                Back to Home
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>
+        &copy; 2026 Event Booking Portal |
+        Developed by Astha Pardeshi |
+        All Rights Reserved
+    </p>
+</footer>
+
+</body>
+</html>

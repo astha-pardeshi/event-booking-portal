@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Booking</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <h1>Confirm Booking</h1>
+</header>
+
+<div class="event-card" style="margin:40px auto; max-width:500px;">
+
+    <h2>{{ event.title }}</h2>
+
+    <p><strong>Category:</strong> {{ event.category }}</p>
+    <p><strong>Location:</strong> {{ event.location }}</p>
+   <p>
+    <strong>Date & Time:</strong>
+    {{ event.date_and_time|date:"F d, Y, h:i A" }}
+</p>
+
+    <form method="POST" action="{% url 'book_event' event.id %}">
+        {% csrf_token %}
+        <button type="submit">Confirm Booking</button>
+    </form>
+
+    <br>
+
+    <a href="{% url 'home' %}">
+        <button>Cancel</button>
+    </a>
+
+</div>
+
+</body>
+</html>
