@@ -66,10 +66,43 @@
 <div class= "event-card">
 
 {% if event.id == 1 %}
-    <img src="{% static 'images/events/nano-tech.jpg' %}"
-         alt="{{ event.title }}"
-         width="250"
-         height="150"
+    <img src="{% static 'images/events/nano.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 3 %}
+    <img src="{% static 'images/events/code.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 4 %}
+    <img src="{% static 'images/events/art.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 5 %}
+    <img src="{% static 'images/events/statup.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 6 %}
+    <img src="{% static 'images/events/photo.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 7 %}
+    <img src="{% static 'images/events/ai.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 8 %}
+    <img src="{% static 'images/events/sports.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
+         style="border-radius:8px;">
+
+{% elif event.id == 9 %}
+    <img src="{% static 'images/events/study.jpg' %}"
+         alt="{{ event.title }}" width="250" height="150"
          style="border-radius:8px;">
 {% endif %}
 
