@@ -65,8 +65,8 @@
 
 <div class= "event-card">
 
-{% if event.image %}
-    <img src="{{ event.image.url }}"
+{% if event.id == 1 %}
+    <img src="{% static 'images/events/nano-tech.jpg' %}"
          alt="{{ event.title }}"
          width="250"
          height="150"
